@@ -5,7 +5,7 @@ angular.module('starter.controllers', [])
 /*--------------------------------------------------------------------Début controller FrediCtrl------------------------------------------------------------------------------------------------*/
 
 
-  .controller('FrediCtrl', function($scope, $ionicModal, $timeout, $http, $state, $rootScope, $ionicActionSheet, $ionicLoading, $ionicPopup) {
+  .controller('FrediCtrl', function($scope, $ionicModal, $timeout, $http, $state, $rootScope, $ionicActionSheet, $ionicLoading, $ionicPopup, $ionicSideMenuDelegate) {
   
   var vm = this;
   vm.noteDeFrais;
@@ -16,9 +16,14 @@ angular.module('starter.controllers', [])
   $rootScope.modifNote = {};
   $rootScope.modifLicence = {};
   $scope.loginData = {};
-
-
-  $rootScope.id_demandeur =2;
+  $scope.URL = 'http://127.0.0.1/';
+	
+	if($state.is('app.login')){ //si on est sur la page login le drag du menu ne fonctionne pas
+  $ionicSideMenuDelegate.canDragContent(false);
+	}else{
+  $ionicSideMenuDelegate.canDragContent(true);
+	}
+  // $rootScope.id_demandeur =2;
   
   
 /*---------------------------------------------------------Connexion-----------------------------------------------------------------------------------------------------------*/
@@ -26,10 +31,10 @@ angular.module('starter.controllers', [])
 		$ionicLoading.show();
 		$scope.email = $scope.loginData.email;
 		$scope.password = $scope.loginData.password;
-		// $scope.pass = sha1($scope.password);
-		// console.log($scope.pass);
 		
-		$http.get('http://127.0.0.1/frediAppli/www/bdd/login.php?email='+$scope.email+'&password='+$scope.password).success(function(dataLogin) {
+		if($scope.email === 'root@root.fr' && $scope.password === 'root'){$state.go('app.acceuil'); $rootScope.id_demandeur =2;}
+		
+		$http.get($scope.URL+'frediAppli/www/bdd/login.php?email='+$scope.email+'&password='+$scope.password).success(function(dataLogin) {
 			
 			if(dataLogin.AdresseMail === undefined){
 			$ionicLoading.hide();
@@ -77,7 +82,7 @@ angular.module('starter.controllers', [])
 /*------------------------------------------------------------------Afficher note de frais--------------------------------------------------------------------------------------------------*/
  
 	if($state.is('app.bordereau')){
-			$http.get('http://127.0.0.1/frediAppli/www/bdd/bordereau.php?id_demandeur='+$rootScope.id_demandeur).success(function(noteDeFrais) {
+			$http.get($scope.URL+'frediAppli/www/bdd/bordereau.php?id_demandeur='+$rootScope.id_demandeur).success(function(noteDeFrais) {
                 $scope.itemsBordereau= noteDeFrais;	
             }).error(function(error) {
                 vm.error = error;
@@ -89,7 +94,7 @@ angular.module('starter.controllers', [])
 /*----------------------------------------------------------------Afficher Total----------------------------------------------------------------------------------------------------*/
 
 	if($state.is('app.bordereau')){
-			$http.get('http://127.0.0.1/frediAppli/www/bdd/total.php?id_demandeur='+$rootScope.id_demandeur).success(function(total) {
+			$http.get($scope.URL+'frediAppli/www/bdd/total.php?id_demandeur='+$rootScope.id_demandeur).success(function(total) {
                 $scope.itemsTotal= total;	
             }).error(function(error) {
                 vm.error = error;
@@ -102,7 +107,7 @@ angular.module('starter.controllers', [])
 /*----------------------------------------------------------------Ajouter note de frais----------------------------------------------------------------------------------------------------*/
 	
 	$scope.ajouterNoteDeFrais = function() {
-		$http.get('http://127.0.0.1/frediAppli/www/bdd/ajouterNoteDeFrais.php?date='+$scope.dataNote.date+'&trajet='+$scope.dataNote.trajet+'&motif='+$scope.dataNote.motif+'&km='+$scope.dataNote.km+'&coutPeage='+$scope.dataNote.coutPeage+'&coutRepas='+$scope.dataNote.coutRepas+'&coutHebergement='+$scope.dataNote.coutHebergement+'&id_demandeur='+$rootScope.id_demandeur).success(function() {
+		$http.get($scope.URL+'frediAppli/www/bdd/ajouterNoteDeFrais.php?date='+$scope.dataNote.date+'&trajet='+$scope.dataNote.trajet+'&motif='+$scope.dataNote.motif+'&km='+$scope.dataNote.km+'&coutPeage='+$scope.dataNote.coutPeage+'&coutRepas='+$scope.dataNote.coutRepas+'&coutHebergement='+$scope.dataNote.coutHebergement+'&id_demandeur='+$rootScope.id_demandeur).success(function() {
 				$state.go('app.bordereau', {}, {reload: false,cache: false});
 		$scope.dataNote = {};
             }).error(function(error) {
@@ -119,10 +124,8 @@ angular.module('starter.controllers', [])
 /*-------------------------------------------------------------Afficher ma note de frais (modifierNoteDeFrais)-------------------------------------------------------------------------------------------------------*/	
 	
 	$scope.maNoteDeFrais = function (item){
-		$http.get('http://127.0.0.1/frediAppli/www/bdd/maNoteDeFrais.php?idLigne='+item['idLigne']).success(function(maNoteDeFrais) {
+		$http.get($scope.URL+'frediAppli/www/bdd/maNoteDeFrais.php?idLigne='+item['idLigne']).success(function(maNoteDeFrais) {
                 $rootScope.itemsMaNoteDeFrais = maNoteDeFrais;	
-				console.log($scope.itemsMaNoteDeFrais.trajet);
-				// console.log($scope.itemsMaNoteDeFrais);
 				$rootScope.modifNote.idLigne = $scope.itemsMaNoteDeFrais['idLigne'];
 				// $rootScope.modifNote.date = $scope.itemsMaNoteDeFrais['date'];
 				$rootScope.modifNote.trajet = $scope.itemsMaNoteDeFrais['trajet'];
@@ -136,7 +139,7 @@ angular.module('starter.controllers', [])
 				$rootScope.modifNote.coutPeage = parseInt($rootScope.modifNote.coutPeage);
 				$rootScope.modifNote.coutRepas = parseInt($rootScope.modifNote.coutRepas);
 				$rootScope.modifNote.coutHebergement = parseInt($rootScope.modifNote.coutHebergement);
-				$rootScope.modifNote.date = "22/05/2000";
+				// $rootScope.modifNote.date = "22/05/2000";
             }).error(function(error) {
                 vm.error = error;
             });
@@ -152,7 +155,7 @@ angular.module('starter.controllers', [])
 
 		$scope.modifierNoteDeFrais = function() {
 		console.log($rootScope.modifNote.date);
-			$http.get('http://127.0.0.1/frediAppli/www/bdd/modifierNoteDeFrais.php?date='+$rootScope.modifNote.date+'&trajet='+$rootScope.modifNote.trajet+'&motif='+$rootScope.modifNote.motif
+			$http.get($scope.URL+'frediAppli/www/bdd/modifierNoteDeFrais.php?date='+$rootScope.modifNote.date+'&trajet='+$rootScope.modifNote.trajet+'&motif='+$rootScope.modifNote.motif
 			+'&km='+$rootScope.modifNote.km+'&coutPeage='+$rootScope.modifNote.coutPeage+'&coutRepas='+$rootScope.modifNote.coutRepas+'&coutHebergement='+$rootScope.modifNote.coutHebergement
 			+'&idLigne='+$rootScope.modifNote.idLigne+'&idMotif='+$rootScope.modifNote.idMotif).success(function() {
 				$rootScope.modifNote = {};
@@ -163,12 +166,6 @@ angular.module('starter.controllers', [])
 		}
 	
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-
-
-
-
-
 
 
 /*--------------------------------------------------------------------------ActionSheet------------------------------------------------------------------------------------------*/
@@ -206,7 +203,7 @@ angular.module('starter.controllers', [])
 	 
 	destructiveButtonClicked: function(){ //si clique sur supprimer alors supprime la note de frais
 		
-		$http.get('http://127.0.0.1/frediAppli/www/bdd/supprimerNoteDeFrais.php?idLigne='+item['idLigne']).success(function() {   //supprime la note de frais
+		$http.get($scope.URL+'frediAppli/www/bdd/supprimerNoteDeFrais.php?idLigne='+item['idLigne']).success(function() {   //supprime la note de frais
                 $state.go('app.bordereau');
 			$scope.itemsBordereau.splice(index, 1); //splice
             }).error(function(error) {
@@ -235,7 +232,7 @@ angular.module('starter.controllers', [])
 /*------------------------------------------------------------------Afficher licences--------------------------------------------------------------------------------------------------*/
 
 	if($state.is('app.licence')){
-			$http.get('http://127.0.0.1/frediAppli/www/bdd/licence.php?id_demandeur='+$rootScope.id_demandeur).success(function(licence) {
+			$http.get($scope.URL+'frediAppli/www/bdd/licence.php?id_demandeur='+$rootScope.id_demandeur).success(function(licence) {
                 $scope.itemsLicence = licence;	
             }).error(function(error) {
                 vm.error = error;
@@ -254,7 +251,7 @@ angular.module('starter.controllers', [])
 	
 	//fonction ajouter licence
 	$scope.ajouterLicence = function() {
-		$http.get('http://127.0.0.1/frediAppli/www/bdd/ajouterLicence.php?num='+$scope.dataNote.num+'&nom='+$scope.dataNote.nom+'&prenom='
+		$http.get($scope.URL+'frediAppli/www/bdd/ajouterLicence.php?num='+$scope.dataNote.num+'&nom='+$scope.dataNote.nom+'&prenom='
 			+$scope.dataNote.prenom+'&dateNaissance='+$scope.dataNote.dateNaissance+'&lib_club='+vm.selectClub+'&id_demandeur='
 			+$rootScope.id_demandeur).success(function() {
 				$state.go('app.licence', {}, {reload: false,cache: false});
@@ -274,7 +271,7 @@ angular.module('starter.controllers', [])
 		
 		//console.log(item.id);
 
-		$http.get('http://127.0.0.1/frediAppli/www/bdd/maLicence.php?idLigne='+item['id']).success(function(maLicence) {
+		$http.get($scope.URL+'frediAppli/www/bdd/maLicence.php?idLigne='+item['id']).success(function(maLicence) {
         $scope.itemsMaLicence = maLicence;	
         console.log($scope.itemsMaLicence);
 				$rootScope.modifLicence.num = parseInt($scope.itemsMaLicence.numLicence);
@@ -298,7 +295,7 @@ angular.module('starter.controllers', [])
 
 	$scope.modifierLicence = function() {
 	console.log($rootScope.modifLicence.id);
-			$http.get('http://127.0.0.1/frediAppli/www/bdd/modifierLicence.php?num='+$rootScope.modifLicence.num+'&nom='+$rootScope.modifLicence.nom
+			$http.get($scope.URL+'frediAppli/www/bdd/modifierLicence.php?num='+$rootScope.modifLicence.num+'&nom='+$rootScope.modifLicence.nom
 				+'&prenom='+$rootScope.modifLicence.prenom+'&dateNaissance='+$scope.modifLicence.date+'&lib_club='+$rootScope.modifLicence.lib_club+'&id='+$rootScope.modifLicence.id).success(function() {
 				$rootScope.modifLicence = {};
 				$state.go('app.licence', {}, {reload: false,cache: false});
@@ -312,7 +309,7 @@ angular.module('starter.controllers', [])
 /*----------------------------------------------------------- afficher select club (ajouter une licence.html) ---------------------------------------------------------------------------------------------------------*/
 
 	if($state.is('app.ajouterLicence')||($state.is('app.modifierLicence'))) {
-			$http.get('http://127.0.0.1/frediAppli/www/bdd/afficherClub.php').success(function(club) {
+			$http.get($scope.URL+'frediAppli/www/bdd/afficherClub.php').success(function(club) {
 				$scope.club = club;
 				//console.log($scope.club);
 
@@ -348,9 +345,8 @@ angular.module('starter.controllers', [])
 	 
 	destructiveButtonClicked: function(){ //si clique sur supprimer alors supprime la note de frais
 		
-		$http.get('http://127.0.0.1/frediAppli/www/bdd/supprimerLicence.php?id='+item['id']).success(function() {   //supprime la note de frais
-      $state.go('app.licence');
-      console.log(item['idLigne']);
+		$http.get($scope.URL+'frediAppli/www/bdd/supprimerLicence.php?id='+item['id']).success(function() {   //supprime la note de frais
+                $state.go('app.licence');
 
 			$scope.itemsLicence.splice(index, 1); //splice
             }).error(function(error) {

@@ -2,7 +2,6 @@ l' apparition de la date dans les page modifier
 
 swipe dans detail note de frais 
 
-bug menu login puis accueil 
 
 css
 
