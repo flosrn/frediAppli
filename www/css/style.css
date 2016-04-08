@@ -1,0 +1,44 @@
+/* Empty. Add your own CSS if you like */
+.introbg {
+    background: url(../img/home.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+	color: #fefefe;
+}
+
+.introbg h1 {
+	color: #fefefe;
+	padding-top: 10%;
+}
+
+.introbg h3 {
+	color: #fefefe;
+	font-size : 22px;
+
+}
+
+label.item.has-error {
+  border-bottom: 2px solid red;
+}
+
+label.item.has-error-lr {
+  border-left: 2px solid red;
+  border-right: 2px solid red;
+}
+
+label.item.valid-lr {
+  border-left: 2px solid green;
+  border-right: 2px solid green;
+}
+
+.form-errors {
+  margin: 5px 0
+}
+
+.form-error {
+  padding: 2px 0 2px 16px;
+  color: red;
+}

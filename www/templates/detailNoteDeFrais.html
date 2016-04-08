@@ -1,0 +1,46 @@
+<!-- <ion-side-menus enable-menu-with-back-views="false"></ion-side-menus> -->
+<ion-view view-title="Detail note de frais"  cache-view="false" >
+
+   <ion-content class="background" overflow-scroll="true" padding="true" class="has-header">
+	 <div class="im-wrapper">
+            <h4 class="no-border no-padding-bottom">Detail note de frais</h4>
+			<!-- <a ui-sref="app.ajouterNoteDeFrais" class="button button-positive button-block  icon-left ion-android-add-circle" >Ajouter une note de frais</a> -->
+
+	<ion-scroll class="col scroll-col">
+	<ion-list  show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe">
+	
+  <ion-item  class="item-thumbnail-center" >
+   
+   <div class="row" >
+          <div class="col">
+			Date : <br><br>
+			Motif : <br><br>
+			Trajet : <br><br>
+			Nombre de kilometre : <br><br>
+			Cout du trajet : <br><br>
+			Cout du peage : <br><br>
+			Cout des repas : <br><br>
+			Cout de l'hebergement : <br><br>
+			Cout Total : 
+		   </div>		  
+		  
+		  <div class="col">
+			{{itemsMaNoteDeFrais.date}}<br><br>
+			{{itemsMaNoteDeFrais.libelle}}<br><br>
+			{{itemsMaNoteDeFrais.trajet}}<br><br>
+			{{itemsMaNoteDeFrais.km}}<br><br>
+			{{itemsMaNoteDeFrais.coutTrajet}}<br><br>
+			{{itemsMaNoteDeFrais.coutPeage}}<br><br>
+			{{itemsMaNoteDeFrais.coutRepas}}<br><br>
+			{{itemsMaNoteDeFrais.coutHebergement}}<br><br>
+			{{itemsMaNoteDeFrais.coutTotal}}
+		  </div>
+	</div>     
+  
+  </ion-item>
+
+</ion-list> 
+</ion-scroll>
+	
+  </ion-content>
+</ion-view>

@@ -1,0 +1,38 @@
+<ion-view view-title="Modifier une licence">
+   <ion-content class="background" overflow-scroll="true" padding="true" class="has-header">
+    <p>Veuillez remplir le formulaire pour modifier cette licence</p>
+	<form ng-submit="modifierLicence()">
+	<div class="list">
+ <label class="item item-input item-stacked-label">
+     <span class="input-label">Numéro de la licence</span>
+     <input type="number" placeholder="Numéro de licence" ng-model="modifLicence.num" required>
+   </label>
+   <label class="item item-input item-floating-label"  ng-messages-include="error-list.html">
+     <span class="input-label">Nom</span>
+     <input type="text" placeholder="Nom" ng-model="modifLicence.nom" ng-maxlength="20" ng-required="requi">
+   </label>
+   <label class="item item-input item-floating-label">
+     <span class="input-label">Prénom</span>
+     <input type="text" placeholder="Prénom" ng-model="modifLicence.prenom" ng-maxlength="20" required>
+   </label>
+   <label class="item item-input item-floating-label">
+     <span class="input-label">Date de naissance</span>
+     <input type="date" placeholder="Date de naissance" ng-model="modifLicence.date" required>
+   </label>
+   <label class="item item-input item-select">
+       <div class="input-label">
+           Club
+       </div>
+       <select ng-model="modifLicence.lib_club">
+         <option ng-repeat="item in club">
+           {{item.Nom}}
+         </option>
+       </select>
+     </label>
+</div>
+
+<button type="submit" class="button button-block button-positive"  icon-left ion-android-add-circle>Modifier cette licence</button>
+</form>
+
+  </ion-content>
+</ion-view>

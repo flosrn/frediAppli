@@ -1,0 +1,40 @@
+<ion-view view-title="Modifier une note de frais">
+   <ion-content class="background" overflow-scroll="true" padding="true" class="has-header">
+    <p>Veillez remplir le formulaire pour modifier cette note de frais</p>
+	<form ng-submit="modifierNoteDeFrais()">
+	<div class="list">
+ <label class="item item-input item-stacked-label">
+    <span class="input-label">Date du déplacement</span>
+    <input type="date" ng-model="modifNote.date" required>
+  </label>
+ <label class="item item-input item-floating-label">
+    <span class="input-label">Trajet</span>
+    <input type="text" placeholder="Trajet" ng-model="modifNote.trajet" ng-maxlength="15" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Motif</span>
+    <input type="text" placeholder="Motif" ng-model="modifNote.motif" ng-maxlength="15" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Nombre de kilometre</span>
+    <input type="number" placeholder="Nombre de kilometre" ng-model="modifNote.km" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Cout du péage</span>
+    <input type="number" placeholder="Cout du péage" ng-model="modifNote.coutPeage" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Cout du repas</span>
+    <input type="number" placeholder="Cout du repas" ng-model="modifNote.coutRepas" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Cout de l'herbergement</span>
+    <input type="number" placeholder="Cout de l'herbergement" ng-model="modifNote.coutHebergement" required>
+  </label>
+</div>
+
+<button type="submit" class="button button-block button-positive"  icon-left ion-android-add-circle" >Modifier cette note de frais</button>
+</form>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,33 @@
+<ion-view view-title="Ajouter une licence">
+   <ion-content class="background" overflow-scroll="true" padding="true" class="has-header">
+ 
+    <p>Veuillez remplir le formulaire pour ajouter une licence</p>
+	<div class="list">
+ <label class="item item-input item-floating-label">
+    <span class="input-label">Numéro de la licence</span>
+    <input type="number" placeholder="Numéro de licence" ng-model="dataNote.num" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Nom</span>
+    <input type="text" placeholder="Nom" ng-model="dataNote.nom" ng-required="requi">
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Prénom</span>
+    <input type="text" placeholder="Prénom" ng-model="dataNote.prenom" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Date de naissance</span>
+    <input type="date" ng-model="dataNote.dateNaissance" required>
+  </label>
+  <label class="item item-input item-select">
+		<button class="button button-stable button-block" modal-select="" ng-model="selectClub" options="club" has-search="true" name="club" ng-change="SSelectClub(selectClub.Nom)" >
+			<div ng-hide="selectClub">Choisir un club</div>
+			<div ng-show="selectClub">Club : {{selectClub.Nom}}</div> 
+			<div class="option">
+				<h2 > {{option.Nom}} </h2>              
+			</div>
+		</button>
+	</div>
+	<button ng-click="ajouterLicence()" class="button button-block button-positive"  icon-left ion-android-add-circle" >Ajouter cette licence</button>
+  </ion-content>
+</ion-view>

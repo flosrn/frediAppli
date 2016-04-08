@@ -1,0 +1,50 @@
+<!-- <ion-side-menus enable-menu-with-back-views="false"></ion-side-menus> -->
+<ion-view view-title="Bordereau"  cache-view="false" >
+
+   <ion-content class="background" overflow-scroll="true" padding="true" class="has-header">
+	 <div class="im-wrapper">
+            <h4 class="no-border no-padding-bottom">Bordereau</h4>
+			<a ui-sref="app.ajouterNoteDeFrais" class="button button-positive button-block  icon-left ion-android-add-circle" >Ajouter une note de frais</a>
+<ion-scroll class="col scroll-col">
+	<ion-list  show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe">
+	
+  <ion-item  class="item-thumbnail-center" >	
+		<div class="row" >
+          <div class="col"><center>Date</center></div>
+          <div class="col"><center>Motif<center></div>
+          <div class="col"><center>Trajet<center></div>
+           <!-- <div class="col"><center>Km(s)<center></div>
+          <div class="col"><center>Coût Trajet<center></div>
+		  <div class="col"><center>Coût Péage<center></div>
+		  <div class="col"><center>Coût Repas<center></div>
+		  <div class="col"><center>Coût Hébergement<center></div> -->
+		  <div class="col"><center>Total ({{itemsTotal.total}})<center></div>
+        </div>
+
+  </ion-item>
+</ion-list> 
+	
+	<ion-list  show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe">
+	
+  <ion-item ng-repeat="item in itemsBordereau" class="item-thumbnail-center" ng-click="show(item, $index)">
+  
+    <div class="row">
+          <div class="col"><center>{{item.date}}<center></div>
+          <div class="col"><center>{{item.libelle}}<center></div>
+          <div class="col"><center>{{item.trajet}}<center></div>
+          <!-- <div class="col"><center>{{item.km}}<center></div>
+          <div class="col"><center>{{item.coutTrajet}}<center></div>
+		  <div class="col"><center>{{item.coutPeage}}<center></div>
+		  <div class="col"><center>{{item.coutRepas}}<center></div>
+		  <div class="col"><center>{{item.coutHebergement}}<center></div> -->
+		  <div class="col"><center>{{item.coutTotal}}<center></div>
+        </div>	
+  
+  </ion-item>
+
+</ion-list> 
+
+</ion-scroll>
+	
+  </ion-content>
+</ion-view>

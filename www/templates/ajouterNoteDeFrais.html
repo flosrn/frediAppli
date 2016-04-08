@@ -1,0 +1,43 @@
+<ion-view view-title="Ajouter une note de frais">
+   <ion-content class="background" overflow-scroll="true" padding="true" class="has-header">
+ 
+    <p>Veillez remplir le formulaire pour ajouter une note de frais</p>
+	<form ng-submit="ajouterNoteDeFrais()">
+	<div class="list">
+ <label class="item item-input item-stacked-label">
+    <span class="input-label">Date du déplacement</span>
+    <input type="date" ng-model="dataNote.date" required>
+  </label>
+  <label class="item item-input item-floating-label"  ng-messages-include="error-list.html">
+    <span class="input-label">Trajet</span>
+    <input type="text" placeholder="Trajet" ng-model="dataNote.trajet" ng-maxlength="20" ng-required="requi">
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Motif</span>
+    <input type="text" placeholder="Motif" ng-model="dataNote.motif" ng-maxlength="20" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Nombre de kilometre</span>
+    <input type="number" placeholder="Nombre de kilometre" ng-model="dataNote.km" max="999" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Cout du péage</span>
+    <input type="number" placeholder="Cout du péage" ng-model="dataNote.coutPeage" max="999" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Cout du repas</span>
+    <input type="number" placeholder="Cout du repas" ng-model="dataNote.coutRepas" max="999" required>
+  </label>
+  <label class="item item-input item-floating-label">
+    <span class="input-label">Cout de l'herbergement</span>
+    <input type="number" placeholder="Cout de l'herbergement" ng-model="dataNote.coutHebergement" max="999" required>
+  </label>
+</div>
+
+<button type="submit" class="button button-block button-positive"  icon-left ion-android-add-circle" >Ajouter cette note de frais</button>
+</form>
+
+
+
+  </ion-content>
+</ion-view>
