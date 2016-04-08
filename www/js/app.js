@@ -101,6 +101,16 @@ angular.module('starter', ['ionic', 'starter.controllers','ionic-modal-select'])
         }
       }
     })
+
+    .state('app.detailLicence', {
+      url: '/detailLicence',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/detailLicence.html',
+      controller: 'FrediCtrl'
+        }
+      }
+    })
 	
 	.state('app.modifierLicence', {
       url: '/modifierLicence',

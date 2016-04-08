@@ -1,0 +1,38 @@
+<!-- <ion-side-menus enable-menu-with-back-views="false"></ion-side-menus> -->
+<ion-view view-title="Detail licence"  cache-view="false" >
+
+   <ion-content class="background" overflow-scroll="true" padding="true" class="has-header">
+	 <div class="im-wrapper">
+            <h4 class="no-border no-padding-bottom">Detail licence</h4>
+			<!-- <a ui-sref="app.ajouterNoteDeFrais" class="button button-positive button-block  icon-left ion-android-add-circle" >Ajouter une note de frais</a> -->
+
+	<ion-scroll class="col scroll-col">
+	<ion-list  show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe">
+	
+  <ion-item  class="item-thumbnail-center" >
+   
+   <div class="row" >
+      <div class="col">
+			Numéro licence : <br><br>
+			Nom : <br><br>
+			Prénom : <br><br>
+			Date de naissance : <br><br>
+			Club : <br><br>
+		   </div>		  
+		  
+		  <div class="col">
+			{{itemsMaLicence.numLicence}}<br><br>
+			{{itemsMaLicence.Nom}}<br><br>
+			{{itemsMaLicence.Prenom}}<br><br>
+			{{itemsMaLicence.dateNaissance}}<br><br>
+			{{itemsMaLicence.lib_club}}<br><br>
+		  </div>
+	</div>     
+  
+  </ion-item>
+
+</ion-list> 
+</ion-scroll>
+	
+  </ion-content>
+</ion-view>
