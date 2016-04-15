@@ -10,6 +10,7 @@ angular.module('starter.controllers', [])
   var vm = this;
   vm.noteDeFrais;
   vm.maNoteDeFrais;
+  vm.maLicence;
   vm.dataLogin;
   vm.selectClub;
   $scope.dataNote = {};
@@ -17,13 +18,15 @@ angular.module('starter.controllers', [])
   $rootScope.modifLicence = {};
   $scope.loginData = {};
   $scope.URL = 'http://127.0.0.1/';
+
+
 	
 	if($state.is('app.login')){ //si on est sur la page login le drag du menu ne fonctionne pas
   $ionicSideMenuDelegate.canDragContent(false);
 	}else{
   $ionicSideMenuDelegate.canDragContent(true);
 	}
-  // $rootScope.id_demandeur =2;
+   $rootScope.id_demandeur =2;
   
   
 /*---------------------------------------------------------Connexion-----------------------------------------------------------------------------------------------------------*/
@@ -272,7 +275,7 @@ angular.module('starter.controllers', [])
 		//console.log(item.id);
 
 		$http.get($scope.URL+'frediAppli/www/bdd/maLicence.php?idLigne='+item['id']).success(function(maLicence) {
-        $scope.itemsMaLicence = maLicence;	
+        $rootScope.itemsMaLicence = maLicence;
         console.log($scope.itemsMaLicence);
 				$rootScope.modifLicence.num = parseInt($scope.itemsMaLicence.numLicence);
 				$rootScope.modifLicence.id = $scope.itemsMaLicence['id'];
@@ -281,8 +284,8 @@ angular.module('starter.controllers', [])
 				$rootScope.modifLicence.date = $scope.itemsMaLicence['dateNaissance'];
 				//$rootScope.modifLicence.idClub = $scope.itemsMaLicence['idClub'];
 				$rootScope.modifLicence.lib_club = $scope.itemsMaLicence['lib_club'];
-				console.log($rootScope.modifLicence.id);
-				console.log($scope.itemsMaLicence['id']);
+				$rootScope.modifLicence.ligueAffliation = $scope.itemsMaLicence['ligueAffliation'];
+				console.log($rootScope.modifLicence.ligueAffliation);
             }).error(function(error) {
                 vm.error = error;
             });		
@@ -327,21 +330,28 @@ angular.module('starter.controllers', [])
    // Show the action sheet
    var hideSheet = $ionicActionSheet.show({
      buttons: [
+       { text: 'Détail' },
        { text: 'Modifier' }
      ],
      destructiveText: 'Supprimer',
      titleText: 'Options licence',
      cancelText: 'Retour',
      cancel: function() {
-          // add cancel code..
+          // add cancel code.. 	
         },
-     buttonClicked: function() {
-	 $state.go('app.modifierLicence');
-		$scope.maLicence(item);
-		
-		
-       return true;
-     },
+     buttonClicked: function(index) {
+
+	 	if(index == 0){
+	 		$state.go("app.detailLicence");
+	 		$scope.maLicence(item);
+	 		console.log(item);
+	 	}
+	 	if(index == 1){
+	 		$state.go('app.modifierLicence');
+	 		$scope.maLicence(item);
+     }
+      return true;
+   },
 	 
 	destructiveButtonClicked: function(){ //si clique sur supprimer alors supprime la note de frais
 		
