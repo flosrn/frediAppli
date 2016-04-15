@@ -7,13 +7,13 @@ $idLigne = $_GET['idLigne'];
 
 
 
-$sql = "select numLicence, a.Nom, a.Prenom, a.dateNaissance, c.Nom as lib_club, c.idClub, a.id from adherent a, club c where a.idClub = c.idClub and id=".$idLigne."";
+$sql = "select numLicence, a.Nom, a.Prenom, a.dateNaissance, c.Nom as lib_club, c.idClub, a.id, c.ligueAffiliation, l.id_ligue from adherent a, club c, ligue l where a.idClub = c.idClub and c.ligueAffiliation = l.id_ligue and id=".$idLigne."";
 
 try {
       $res = $con->query($sql);
       $row = $res->fetch(PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
-      die("<p>Erreur lors de la requête SQL : " . $e->getMessage() . "</p>");
+      die("<p>Erreur lors de la requÃªte SQL : " . $e->getMessage() . "</p>");
   }
   
   
